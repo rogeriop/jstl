@@ -20,6 +20,7 @@
 	</script>
 
 	<h1>Produtos</h1>
+	<h2><fmt:message key="mensagem.bemvindo" /></h2>
 	<div id="mensagem"></div>
 	<table width="100%">
 		<tr>
@@ -33,10 +34,10 @@
 		</tr>
 		<c:forEach var="p" items="${produtoList}" varStatus="st">
 			<tr id="produto${p.id}">
-				<td>${p.nome}</td>
-				<td>${p.preco}</td>
+				<td>${p.nome.toUpperCase()}</td>
+				<td><fmt:formatNumber value="${p.preco}" type="currency"/></td>
 				<td>${p.descricao}</td>
-				<td>${p.dataInicioVenda.time}</td>
+				<td><fmt:formatDate pattern="EEEE, dd 'de' MMMM 'de' yyyy" value="${p.dataInicioVenda.time}" /></td>
 				
 				<c:choose>
 	   				<c:when test="${p.usado}">
@@ -53,6 +54,9 @@
 		
 
 	</table>
-	<a href="<c:url value="/produto/formulario" />">Adicionar um produto</a>
+	
+	<c:url value="/produto/formulario" var="linkProduto" />
+	<a href="${linkProduto}"><fmt:message key="mensagem.novoProduto" /></a>
 </body>
+
 </html>
